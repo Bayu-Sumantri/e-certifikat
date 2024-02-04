@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Siswa;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +18,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::match(['get', 'post'], '/', function (Request $request) {
+    $query = $request->input('search');
+
+    if ($query) {
+        $results = DB::table('siswas')
+            ->where('nama', 'LIKE', '%' . $query . '%')
+            ->get();
+
+        return view('welcome', ['results' => $results]);
+    }
+
     return view('welcome');
 });
 
 Route::get('/dashboard', function () {
-    return view('admin.index');
+    $Siswa = Siswa::simplePaginate(50);
+    return view('create_siswa.list', compact('Siswa'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
