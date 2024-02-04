@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use App\Models\Siswa;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CetakSertifController;
 
 
 /*
@@ -48,6 +49,18 @@ Route::middleware('auth')->group(function () {
 Route::resource('Siswa', 'App\Http\Controllers\SiswaController')->middleware(['auth']);
 Route::resource('Setting', 'App\Http\Controllers\SettingController')->middleware(['auth']);
 Route::resource('Tema', 'App\Http\Controllers\TemaSertifController')->middleware(['auth']);
+Route::resource('Cetak', 'App\Http\Controllers\CetakSertifController')->middleware(['auth']);
+
+
+
+Route::get('cetakPDF/{id_sertifikat}/{id}', [CetakSertifController::class, "cetakPDF"])->name('cetakPDF');
+
+Route::get('cetakPDF1/{id}', [CetakSertifController::class, "cetakPDF1"])->name('cetakPDF1');
+Route::get('cetakPDF2/{id}', [CetakSertifController::class, "cetakPDF2"])->name('cetakPDF2');
+Route::get('cetakPDF3/{id}', [CetakSertifController::class, "cetakPDF3"])->name('cetakPDF3');
+
+
+
 
 
 require __DIR__.'/auth.php';

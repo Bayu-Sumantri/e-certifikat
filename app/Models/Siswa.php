@@ -13,6 +13,7 @@ class Siswa extends Model
 
     protected $fillable = [
         "nama",
+        "id_sertifikat",
         "no_sertifikat",
         "tema_pelatihan",
         "desk_sertifikat",

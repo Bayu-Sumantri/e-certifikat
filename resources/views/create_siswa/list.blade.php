@@ -66,8 +66,10 @@
                                                     @csrf
                                                     {{ method_field('DELETE') }}
                                                     <a href="" target="_blank" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                                                    <a href="#" onclick="openPDF('{{ $row->id }}', '{{ $row->id_sertifikat }}')" class="btn btn-warning"><i class="fa fa-print"></i></a>
                                                     <button type="submit" class="btn btn-danger"><i
                                                             class="fa fa-trash"></i></button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -95,6 +97,30 @@
         <!--**********************************
             Content body end
         ***********************************-->
+         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+         <script>
+            function openPDF(id, id_sertifikat) {
+                var baseUrl = "{{ url('cetakPDF') }}";
+                var url;
+
+                // Check id_sertifikat and set the appropriate route
+                if (id_sertifikat == 1) {
+                    url = baseUrl + '1/' + id;
+                } else if (id_sertifikat == 2) {
+                    url = baseUrl + '2/' + id;
+                } else if (id_sertifikat == 3) {
+                    url = baseUrl + '3/' + id;
+                } else {
+                    // Handle other cases or show an error message
+                    console.error('Invalid id_sertifikat:', id_sertifikat);
+                    return;
+                }
+
+                // Open the URL in a new tab/window
+                window.open(url, '_blank');
+            }
+        </script>
+
 
 
 @endsection

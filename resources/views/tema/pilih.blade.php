@@ -1,6 +1,6 @@
 @extends('admin.admin_master')
 @section('tittle')
-    Pilih Tema
+    Tema
 @endsection
 
 @section('admin.index')
@@ -47,7 +47,6 @@
                                                     <div class="card-header">
                                                         <h5 class="card-title">{{ $tema->nama_tema }}</h5>
                                                     </div>
-                                                    <button class="btn btn-primary">Save</button>
                                                 </div>
                                             </div>
                                         @endforeach

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Siswa;
+use App\Models\TemaSertif;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class SiswaController extends Controller
 {
@@ -22,41 +24,51 @@ class SiswaController extends Controller
     public function create()
     {
         $Siswa = Siswa::orderBy('nama', 'asc')->simplePaginate(50);
-        return view('create_siswa.index', compact('Siswa'));
+        $Sertif = TemaSertif::all();
+        return view('create_siswa.index', compact('Siswa', 'Sertif'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        // dd ($request);
-        $data = $request->validate([
-            'nama'             => ['required', 'string', 'max:255'],
-            'no_sertifikat'    => ['required', 'string', 'max:255'],
-            'tema_pelatihan'   => ['required', 'string', 'max:255'],
-            'desk_sertifikat'  => ['required', 'string', 'max:255'],
-            'nisn'             => ['required', 'string', 'max:11'],
-            'juara_lomba'      => ['required', 'string', 'max:255'],
-        ]);
+
+     public function store(Request $request)
+     {
+         $data = $request->validate([
+             'nama'             => ['required', 'string', 'max:255'],
+             'id_sertifikat'    => ['required'],
+             'tema_pelatihan'   => ['required', 'string', 'max:255'],
+             'desk_sertifikat'  => ['required', 'string', 'max:255'],
+             'nisn'             => ['required', 'string', 'max:11'],
+             'juara_lomba'      => ['required', 'string', 'max:255'],
+         ]);
+
+         // Get the latest Siswa entry
+         $latestSiswa = Siswa::latest()->first();
+
+         // Determine the next sequential number
+         $nextNumber = $latestSiswa ? $latestSiswa->no_sertifikat + 1 : 0;
+
+         // Check if the number is within the allowed range (0 to 9999)
+         if ($nextNumber <= 9999) {
+             // Create the Siswa entry
+             Siswa::create([
+                 'nama'              => $request->nama,
+                 'id_sertifikat'     => $request->id_sertifikat,
+                 'desk_sertifikat'   => $request->desk_sertifikat,
+                 'no_sertifikat'     => str_pad($nextNumber, 4, '9999', STR_PAD_LEFT),
+                 'tema_pelatihan'    => $request->tema_pelatihan,
+                 'nisn'              => $request->nisn,
+                 'juara_lomba'       => $request->juara_lomba,
+             ]);
+
+             return redirect(route('Siswa.index'))->with('success', 'Successfully uploaded your Product');
+         } else {
+             return redirect(route('Siswa.index'))->with('error', 'Maximum sequential number reached');
+         }
+     }
 
 
-
-        Siswa::create([
-            'nama'    => $request->nama,
-            'desk_sertifikat'     => $request->desk_sertifikat,
-            'no_sertifikat'   => $request->no_sertifikat,
-            'tema_pelatihan'           => $request->tema_pelatihan,
-            'nisn'           => $request->nisn,
-            'juara_lomba'           => $request->juara_lomba,
-        ]);
-
-        // Flash message using Laravel Alert package (you need to install it)
-        // Alert::success('Berhasil', 'Success Make a Product');
-
-        // Redirect to the correct route (Product.index)
-        return redirect(route('Siswa.index'))->with('success', 'Successfully uploaded your Product');
-    }
 
     /**
      * Display the specified resource.

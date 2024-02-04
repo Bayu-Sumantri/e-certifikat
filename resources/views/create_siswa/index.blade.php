@@ -41,28 +41,40 @@
                                         @csrf
                                         <div class="form-group">
                                             <label for="nama">Name Siswa</label>
-                                            <input type="text" class="form-control input-rounded" id="nama" name="nama" placeholder="Name Siswa">
+                                            <input type="text" class="form-control input-rounded" id="nama"
+                                                name="nama" placeholder="Name Siswa" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="tema_pelatihan">Tema Pelatihan</label>
-                                            <input type="text" class="form-control input-rounded" id="tema_pelatihan" name="tema_pelatihan" placeholder="Tema Pelatihan">
+                                            <input type="text" class="form-control input-rounded" id="tema_pelatihan"
+                                                name="tema_pelatihan" placeholder="Tema Pelatihan" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="desk_sertifikat">Desk Sertifikat</label>
-                                            <input type="text" class="form-control input-rounded" id="desk_sertifikat" name="desk_sertifikat" placeholder="Desk Sertifikat">
+                                            <input type="text" class="form-control input-rounded" id="desk_sertifikat"
+                                                name="desk_sertifikat" placeholder="Desk Sertifikat" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="juara_lomba">Juara Lomba</label>
-                                            <input type="text" class="form-control input-rounded" id="juara_lomba" name="juara_lomba" placeholder="Juara Lomba">
+                                            <input type="text" class="form-control input-rounded" id="juara_lomba"
+                                                name="juara_lomba" placeholder="Juara Lomba" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="nisn">NISN</label>
-                                            <input type="number" class="form-control input-rounded" id="nisn" name="nisn" placeholder="NISN">
+                                            <input type="number" class="form-control input-rounded" id="nisn"
+                                                name="nisn" placeholder="NISN" required>
                                         </div>
+                                        <!-- Hapus input no_sertifikat, karena akan diisi secara otomatis -->
                                         <div class="form-group">
-                                            <label for="no_sertifikat">No Sertifikat</label>
-                                            <input type="number" class="form-control input-rounded" id="no_sertifikat" name="no_sertifikat" placeholder="No Sertifikat">
+                                            <label for="exampleSelect">Pilih Tema</label>
+                                            <select class="form-control" id="exampleSelect" name="id_sertifikat" required>
+                                                @foreach ($Sertif as $row)
+                                                <option selected>Pilih Nama Tema</option>
+                                                    <option value="{{ $row->id }}">{{ $row->nama_tema }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
+
                                         <button type="submit" class="btn btn-primary mt-3">Submit</button>
                                     </form>
 
