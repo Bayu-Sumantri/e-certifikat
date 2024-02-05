@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,10 +38,25 @@
             box-shadow: 0 0 30px rgba(52, 152, 219, 0.7); /* Efek shadow */
         }
 
-        .logo {
-            font-family: 'The Youngest', cursive;
-            font-size: 16px;
-            color: #3498db; /* Warna teks */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+
+        .header .left {
+            text-align: left;
+        }
+
+        .header .right {
+            text-align: right;
+        }
+
+        .certificate-number {
+            font-family: 'Alata', sans-serif;
+            font-size: 18px;
+            color: #3498db;
+            margin-top: 10px;
         }
 
         .marquee {
@@ -64,6 +78,17 @@
             font-style: italic;
             margin: 20px auto;
             width: 200px;
+            color: #3498db;
+        }
+
+        .logo {
+            font-family: 'The Youngest', cursive;
+            font-size: 16px;
+            color: #3498db; /* Warna teks */
+        }
+
+        .reason {
+            margin: 20px;
             color: #3498db;
         }
 
@@ -93,11 +118,6 @@
             color: #3498db;
         }
 
-        .reason {
-            margin: 20px;
-            color: #3498db;
-        }
-
         @media (max-width: 768px) {
             .container {
                 width: 90%;
@@ -108,6 +128,22 @@
 
 <body>
     <div class="container">
+        <div class="header">
+            <div class="left">
+                <div class="certificate-number">
+                    No. Sertifikat: {{ $Siswa->no_sertifikat }}
+                </div>
+            </div>
+            <div class="right">
+                <div class="certificate-number">
+                    {{ now()->format('d F Y') }}
+                </div>
+                <div class="certificate-number">
+                    {{ $Siswa->tempat }}
+                </div>
+            </div>
+        </div>
+
         <div class="marquee">
             Sertifikat
         </div>
@@ -121,29 +157,35 @@
         </div>
 
         <div class="person">
-            Your name
+            {{ $Siswa->nama }}
         </div>
 
         <div class="logo">
-            penghargaan
+            {{ $Siswa->tema_pelatihan }}
         </div>
 
         <div class="reason">
-            For deftly defying the laws of gravity<br/>
-            and flying high
+            {{ $Siswa->desk_sertifikat }}
         </div>
 
         <div class="signature signature-left">
-            <img src="left_signature.png" alt="Left Signature">
-            <p>John Doe</p>
+            <img src="{{ asset('storage/' . $Siswa->setting->ttd_pengajar) }}" alt="{{ $Siswa->setting->ttd_pengajar }}" alt="Left Signature">
+            <p>{{ $Siswa->setting->nama_pengajar }}</p>
         </div>
 
         <div class="signature signature-right">
-            <img src="right_signature.png" alt="Right Signature">
-            <p>Jane Smith</p>
+            <img src="{{ asset('storage/' . $Siswa->setting->ttd_pemimpin) }}" alt="{{ $Siswa->setting->ttd_pemimpin }}" alt="Right Signature">
+            <p>{{ $Siswa->setting->instansi_pengajar }}</p>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Wait for the document to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            // Trigger the print dialog
+            window.print();
+        });
+    </script>
 </body>
 
 </html>

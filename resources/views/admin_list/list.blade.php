@@ -1,6 +1,6 @@
 @extends('admin.admin_master')
 @section('tittle')
-    Data Siswa
+    List Admin
 @endsection
 
 @section('admin.index')
@@ -31,7 +31,6 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <a href="{{ route('Siswa.create') }}" class="btn btn-success"><i class="mdi mdi-plus"></i>Create</a>
                                 <h4 class="card-title">@yield('tittle')</h4>
                             </div>
                             <div class="card-body">
@@ -41,34 +40,27 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Name</th>
-                                                <th>No Sertifikat</th>
-                                                <th>Tema Pelatihan</th>
-                                                <th>Description Sertifikat</th>
-                                                <th>NISN</th>
-                                                <th>Action</th>
+                                                <th>Email</th>
+                                                {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
-                                        @foreach ($Siswa as $row)
+                                        @foreach ($User as $row)
                                         <tbody>
                                             <tr>
-                                                <td>{{ $loop->iteration + $Siswa->perpage() * ($Siswa->currentPage() - 1) }}</td>
-                                                <td>{{ $row->nama }}</td>
-                                                <td>{{ $row->no_sertifikat }}</td>
-                                                <td>{{ $row->tema_pelatihan }}</td>
-                                                <td>{{ $row->desk_sertifikat }}</td>
-                                                <td>{{ $row->nisn }}</td>
-                                                <td>
+                                                <td>{{ $loop->iteration + $User->perpage() * ($User->currentPage() - 1) }}</td>
+                                                <td>{{ $row->name }}</td>
+                                                <td>{{ $row->email }}</td>
+                                                {{-- <td>
                                                     <form method="post"
                                                     onsubmit="return confirm('Apakah anda yakin akan menghapus, Data {{ $row->nama }}?..')"
                                                     action="{{ route('Siswa.destroy', $row->id) }}">
                                                     @csrf
                                                     {{ method_field('DELETE') }}
                                                     <a href="" target="_blank" class="btn btn-info"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" onclick="openPDF('{{ $row->id }}', '{{ $row->id_sertifikat }}')" class="btn btn-warning"><i class="fa fa-print"></i></a>
                                                     <button type="submit" class="btn btn-danger"><i
                                                             class="fa fa-trash"></i></button>
                                                     </form>
-                                                </td>
+                                                </td> --}}
                                             </tr>
                                         </tbody>
                                         @endforeach
@@ -76,11 +68,8 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Name</th>
-                                                <th>No Sertifikat</th>
-                                                <th>Tema Pelatihan</th>
-                                                <th>Description Sertifikat</th>
-                                                <th>NISN</th>
-                                                <th>Action</th>
+                                                <th>Email</th>
+                                                {{-- <th>Action</th> --}}
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -94,29 +83,29 @@
         <!--**********************************
             Content body end
         ***********************************-->
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <script>
-           function openPDF(id, id_sertifikat) {
-               var baseUrl = "{{ url('cetakPDF') }}";
-               var url;
+         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+         <script>
+            function openPDF(id, id_sertifikat) {
+                var baseUrl = "{{ url('cetakPDF') }}";
+                var url;
 
-               // Check id_sertifikat and set the appropriate route
-               if (id_sertifikat == 1) {
-                   url = baseUrl + '1/' + id;
-               } else if (id_sertifikat == 2) {
-                   url = baseUrl + '2/' + id;
-               } else if (id_sertifikat == 3) {
-                   url = baseUrl + '3/' + id;
-               } else {
-                   // Handle other cases or show an error message
-                   console.error('Invalid id_sertifikat:', id_sertifikat);
-                   return;
-               }
+                // Check id_sertifikat and set the appropriate route
+                if (id_sertifikat == 1) {
+                    url = baseUrl + '1/' + id;
+                } else if (id_sertifikat == 2) {
+                    url = baseUrl + '2/' + id;
+                } else if (id_sertifikat == 3) {
+                    url = baseUrl + '3/' + id;
+                } else {
+                    // Handle other cases or show an error message
+                    console.error('Invalid id_sertifikat:', id_sertifikat);
+                    return;
+                }
 
-               // Open the URL in a new tab/window
-               window.open(url, '_blank');
-           }
-       </script>
+                // Open the URL in a new tab/window
+                window.open(url, '_blank');
+            }
+        </script>
 
 
 
