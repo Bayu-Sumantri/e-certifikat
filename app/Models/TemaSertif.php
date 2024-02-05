@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;  
+
 
 class TemaSertif extends Model
 {
@@ -15,4 +17,9 @@ class TemaSertif extends Model
         "nama_tema",
         "gambar_tema",
     ];
+
+    public function siswa(): HasOne
+    {
+        return $this->hasOne(siswa::class, 'id_sertifikat');
+    }
 }

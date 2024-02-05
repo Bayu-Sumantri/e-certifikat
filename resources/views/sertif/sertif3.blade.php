@@ -114,6 +114,22 @@
 
 <body>
     <div class="container">
+        <div class="header">
+            <div class="left">
+                <div class="certificate-number">
+                    No. Sertifikat: {{ $Siswa->no_sertifikat }}
+                </div>
+            </div>
+            <div class="right">
+                <div class="certificate-number">
+                    {{ now()->format('d F Y') }}
+                </div>
+                <div class="certificate-number">
+                    {{ $Siswa->tempat }}
+                </div>
+            </div>
+        </div>
+
         <div class="marquee">
             Sertifikat
         </div>
@@ -127,33 +143,36 @@
         </div>
 
         <div class="person">
-            Your name
+            {{ $Siswa->nama }}
         </div>
 
         <div class="logo">
-            penghargaan
+            {{ $Siswa->tema_pelatihan }}
         </div>
 
         <div class="reason">
-            For deftly defying the laws of gravity<br/>
-            and flying high
+            {{ $Siswa->desk_sertifikat }}
         </div>
 
         <div class="signature signature-left">
-            <img src="left_signature.png" alt="Left Signature">
-            <p>John Doe</p>
+            <img src="{{ asset('storage/' . $Siswa->setting->ttd_pengajar) }}" alt="{{ $Siswa->setting->ttd_pengajar }}" alt="Left Signature">
+            <p>{{ $Siswa->setting->nama_pengajar }}</p>
         </div>
 
         <div class="signature signature-right">
-            <img src="right_signature.png" alt="Right Signature">
-            <p>Jane Smith</p>
-        </div>
-
-        <div class="icon">
-            <i class="bi bi-printer"></i> <!-- Ganti dengan ikon printer yang sesuai -->
+            <img src="{{ asset('storage/' . $Siswa->setting->ttd_pemimpin) }}" alt="{{ $Siswa->setting->ttd_pemimpin }}" alt="Right Signature">
+            <p>{{ $Siswa->setting->instansi_pengajar }}</p>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Wait for the document to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            // Trigger the print dialog
+            window.print();
+        });
+    </script>
 </body>
 
 </html>

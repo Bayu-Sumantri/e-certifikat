@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use App\Models\Siswa;
 use App\Models\TemaSertif;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ class SiswaController extends Controller
     {
         $Siswa = Siswa::orderBy('nama', 'asc')->simplePaginate(50);
         $Sertif = TemaSertif::all();
-        return view('create_siswa.index', compact('Siswa', 'Sertif'));
+        $Setting = Setting::all();
+        return view('create_siswa.index', compact('Siswa', 'Sertif', 'Setting'));
     }
 
     /**
@@ -34,13 +36,16 @@ class SiswaController extends Controller
 
      public function store(Request $request)
      {
+        // return $request;
+         // Validate the request data
          $data = $request->validate([
              'nama'             => ['required', 'string', 'max:255'],
              'id_sertifikat'    => ['required'],
-             'tema_pelatihan'   => ['required', 'string', 'max:255'],
+             'id_setting'       => ['required'],
+             'tema_pelatihan'   => ['string', 'max:255'],
              'desk_sertifikat'  => ['required', 'string', 'max:255'],
-             'nisn'             => ['required', 'string', 'max:11'],
-             'juara_lomba'      => ['required', 'string', 'max:255'],
+             'nisn'             => ['required', 'numeric', 'digits_between:1,11'],
+            //  'juara_lomba'      => ['string', 'max:255'],
          ]);
 
          // Get the latest Siswa entry
@@ -55,11 +60,12 @@ class SiswaController extends Controller
              Siswa::create([
                  'nama'              => $request->nama,
                  'id_sertifikat'     => $request->id_sertifikat,
+                 'id_setting'        => $request->id_setting,
                  'desk_sertifikat'   => $request->desk_sertifikat,
                  'no_sertifikat'     => str_pad($nextNumber, 4, '9999', STR_PAD_LEFT),
                  'tema_pelatihan'    => $request->tema_pelatihan,
                  'nisn'              => $request->nisn,
-                 'juara_lomba'       => $request->juara_lomba,
+                //  'juara_lomba'       => $request->juara_lomba,
              ]);
 
              return redirect(route('Siswa.index'))->with('success', 'Successfully uploaded your Product');
@@ -67,6 +73,7 @@ class SiswaController extends Controller
              return redirect(route('Siswa.index'))->with('error', 'Maximum sequential number reached');
          }
      }
+
 
 
 

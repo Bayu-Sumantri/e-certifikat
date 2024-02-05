@@ -47,17 +47,12 @@
                                         <div class="form-group">
                                             <label for="tema_pelatihan">Tema Pelatihan</label>
                                             <input type="text" class="form-control input-rounded" id="tema_pelatihan"
-                                                name="tema_pelatihan" placeholder="Tema Pelatihan" required>
+                                                name="tema_pelatihan" placeholder="Tema Pelatihan">
                                         </div>
                                         <div class="form-group">
                                             <label for="desk_sertifikat">Desk Sertifikat</label>
                                             <input type="text" class="form-control input-rounded" id="desk_sertifikat"
                                                 name="desk_sertifikat" placeholder="Desk Sertifikat" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="juara_lomba">Juara Lomba</label>
-                                            <input type="text" class="form-control input-rounded" id="juara_lomba"
-                                                name="juara_lomba" placeholder="Juara Lomba" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="nisn">NISN</label>
@@ -68,9 +63,19 @@
                                         <div class="form-group">
                                             <label for="exampleSelect">Pilih Tema</label>
                                             <select class="form-control" id="exampleSelect" name="id_sertifikat" required>
+                                                <option value="" disabled selected>Pilih Nama Tema</option>
                                                 @foreach ($Sertif as $row)
-                                                <option selected>Pilih Nama Tema</option>
                                                     <option value="{{ $row->id }}">{{ $row->nama_tema }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleSelect">Pilih Signature</label>
+                                            <select class="form-control" id="exampleSelect" name="id_setting" required>
+                                                <option value="" disabled selected>Pilih Signature</option>
+                                                @foreach ($Setting as $row)
+                                                    <option value="{{ $row->id }}">{{ $row->nama_pengajar }} - {{ $row->instansi_pengajar }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -85,6 +90,8 @@
                 </div>
             </div>
         </div>
+
+
 
 
     </section>

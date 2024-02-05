@@ -16,11 +16,12 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->foreignId('id_sertifikat')->Reference('id')->on('tema_sertifs');
+            $table->foreignId('id_setting')->Reference('id')->on('settings');
             $table->uuid('no_sertifikat');
-            $table->string('tema_pelatihan');
+            $table->string('tema_pelatihan')->nullable();
             $table->string('desk_sertifikat');
             $table->string('nisn');
-            $table->string('juara_lomba');
+            // $table->string('juara_lomba')->nullable();
             $table->timestamps();
         });
     }
