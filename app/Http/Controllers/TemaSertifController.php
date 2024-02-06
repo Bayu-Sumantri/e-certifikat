@@ -47,7 +47,7 @@ class TemaSertifController extends Controller
 
         // return $data;
 
-        return redirect(route('Tema.index'))->with('success', "successfully uploaded your anime");
+        return redirect(route('Tema.index'))->with('success', "successfully uploaded your Thema");
     }
 
     /**

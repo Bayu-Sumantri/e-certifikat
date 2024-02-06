@@ -68,9 +68,9 @@ class SiswaController extends Controller
                 //  'juara_lomba'       => $request->juara_lomba,
              ]);
 
-             return redirect(route('Siswa.index'))->with('success', 'Successfully uploaded your Product');
+             return redirect(route('Siswa.index'))->with('success', 'Successfully uploaded your siswa');
          } else {
-             return redirect(route('Siswa.index'))->with('error', 'Maximum sequential number reached');
+             return redirect(route('Siswa.index'))->with('error', 'Maximum sequential number siswa');
          }
      }
 
@@ -90,7 +90,12 @@ class SiswaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $Siswa = Siswa::findOrFail($id);
+
+        $Sertif = TemaSertif::all();
+        $Setting = Setting::all();
+
+        return view('create_siswa.edit', compact('Siswa', 'Sertif', 'Setting'));
     }
 
     /**
