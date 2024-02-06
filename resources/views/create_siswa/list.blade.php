@@ -63,7 +63,6 @@
                                                     action="{{ route('Siswa.destroy', $row->id) }}">
                                                     @csrf
                                                     {{ method_field('DELETE') }}
-                                                    <a href="" target="_blank" class="btn btn-info"><i class="fa fa-edit"></i></a>
                                                     <a href="#" onclick="openPDF('{{ $row->id }}', '{{ $row->id_sertifikat }}')" class="btn btn-warning"><i class="fa fa-print"></i></a>
                                                     <button type="submit" class="btn btn-danger"><i
                                                             class="fa fa-trash"></i></button>
@@ -94,29 +93,66 @@
         <!--**********************************
             Content body end
         ***********************************-->
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <script>
-           function openPDF(id, id_sertifikat) {
-               var baseUrl = "{{ url('cetakPDF') }}";
-               var url;
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    function openPDF(id, id_sertifikat) {
+        var baseUrl = "{{ url('cetakPDF') }}";
+        var url;
 
-               // Check id_sertifikat and set the appropriate route
-               if (id_sertifikat == 1) {
-                   url = baseUrl + '1/' + id;
-               } else if (id_sertifikat == 2) {
-                   url = baseUrl + '2/' + id;
-               } else if (id_sertifikat == 3) {
-                   url = baseUrl + '3/' + id;
-               } else {
-                   // Handle other cases or show an error message
-                   console.error('Invalid id_sertifikat:', id_sertifikat);
-                   return;
-               }
+        // Check id_sertifikat and set the appropriate route
+        if (id_sertifikat == 1) {
+            url = baseUrl + '1/' + id;
+        } else if (id_sertifikat == 2) {
+            url = baseUrl + '2/' + id;
+        } else if (id_sertifikat == 3) {
+            url = baseUrl + '3/' + id;
+        } else {
+            // Handle other cases or show an error message
+            console.error('Invalid id_sertifikat:', id_sertifikat);
+            return;
+        }
 
-               // Open the URL in a new tab/window
-               window.open(url, '_blank');
-           }
-       </script>
+        // Open the URL in a new tab/window
+        var newWindow = window.open(url, '_blank');
+
+        // // Add event listener to check when the new window is loaded
+        // $(newWindow).on('load', function () {
+        //     // After the window is loaded, send an AJAX request to download the PDF
+        //     $.ajax({
+        //         url: url,
+        //         method: 'GET',
+        //         xhrFields: {
+        //             responseType: 'blob'
+        //         },
+        //         success: function (data) {
+        //             console.log(data); // Check the received data in the console
+        //             var blob = new Blob([data], { type: 'application/pdf' });
+
+        //             // Create a link element to trigger the download
+        //             var link = document.createElement('a');
+        //             link.href = window.URL.createObjectURL(blob);
+        //             link.download = 'cetak_pdf_' + id + '.pdf';
+
+        //             // Append the link to the document
+        //             document.body.appendChild(link);
+
+        //             // Trigger the click event on the link
+        //             link.click();
+
+        //             // Remove the link from the document
+        //             document.body.removeChild(link);
+        //         },
+        //         error: function (xhr, status, error) {
+        //             console.error('Error downloading PDF:', error);
+        //         }
+        //     });
+
+        // });
+    }
+</script>
+
+
 
 
 

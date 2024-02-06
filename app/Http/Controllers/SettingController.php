@@ -40,6 +40,7 @@ class SettingController extends Controller
         ]);
 
         $ttd_pemimpin = $request->file('ttd_pemimpin')->store('ttd_pemimpin');
+        
         $ttd_pengajar = $request->file('ttd_pengajar')->store('ttd_pengajar');
 
        $Settings = Setting::create([
@@ -54,7 +55,7 @@ class SettingController extends Controller
 
         // return $data;
 
-        return redirect(route('Setting.index'))->with('success', "successfully uploaded your anime");
+        return redirect(route('Setting.index'))->with('success', "successfully uploaded your Settings");
     }
 
     /**

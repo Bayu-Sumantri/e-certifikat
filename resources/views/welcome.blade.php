@@ -120,9 +120,10 @@
                 @foreach ($results as $result)
                     <div class="card">
                         <h4>{{ $result->nama }}</h4>
+                        <p>{{ $result->tema_pelatihan }} - {{ $result->desk_sertifikat }}</p>
                         <a href="#"
                             onclick="printAndDownload('{{ $result->id }}', '{{ $result->id_sertifikat }}')"
-                            class="btn btn-warning"><i class="fa fa-print"></i> Print Sertifikat</a>
+                            class="btn btn-warning"><i class="fa fa-print"></i> View Sertifikat</a>
                         <!-- Add the necessary information for the download link -->
                         {{-- <a href="{{ route('downloadPDF', $result->id) }}" class="btn btn-success">Download PDF</a> --}}
                     </div>

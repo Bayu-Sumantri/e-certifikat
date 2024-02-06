@@ -166,13 +166,17 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        // Wait for the document to be fully loaded
-        document.addEventListener('DOMContentLoaded', function () {
-            // Trigger the print dialog
-            window.print();
-        });
-    </script>
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script>
+    // Wait for the document to be fully loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        // Trigger the print dialog
+        window.print();
+    });
+</script>
 </body>
 
 </html>
